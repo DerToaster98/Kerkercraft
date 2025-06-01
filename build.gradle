@@ -3,7 +3,11 @@ plugins {
     id 'maven-publish'
     id 'net.neoforged.moddev' version '2.0.89'
     id 'idea'
+	id 'com.github.johnrengelman.shadow' version '8.1.1'
 }
+
+apply plugin: 'com.github.johnrengelman.shadow'
+apply plugin: 'java'
 
 tasks.named('wrapper', Wrapper).configure {
     // Define wrapper values here so as to not have to always do so when updating gradlew.properties.
@@ -30,6 +34,7 @@ repositories {
             includeGroup('software.bernie.geckolib')
         }
     }
+	maven { url "https://commoble.net/maven/" }
 }
 
 base {
@@ -120,6 +125,7 @@ sourceSets.main.resources { srcDir 'src/generated/resources' }
 // "optional", meaning it will not be pulled by dependents of this mod.
 configurations {
     runtimeClasspath.extendsFrom localRuntime
+	shade
 }
 
 dependencies {
@@ -145,7 +151,19 @@ dependencies {
     // http://www.gradle.org/docs/current/userguide/artifact_dependencies_tutorial.html
     // http://www.gradle.org/docs/current/userguide/dependency_management.html
 	implementation "software.bernie.geckolib:geckolib-neoforge-${minecraft_version}:${geckolib_version}"
+	
+	implementation "net.commoble.databuddy:${databuddy_branch}:${databuddy_version}"
+	shade "net.commoble.databuddy:${databuddy_branch}:${databuddy_version}"
 }
+
+/*shadowJar {
+	classifier = ''
+	configurations = [project.configurations.shade]
+	relocate 'net.commoble.databuddy', "${project.group}.shadow.net.commoble.databuddy"
+}*/
+
+//tasks.build.dependsOn shadowJar
+//jar.finalizedBy('shadowJar')
 
 // This block of code expands all declared replace properties in the specified resource targets.
 // A missing property will result in an error. Properties are expanded using ${} Groovy notation.
