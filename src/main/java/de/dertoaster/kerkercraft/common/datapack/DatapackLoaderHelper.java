@@ -1,19 +1,18 @@
 package de.dertoaster.kerkercraft.common.datapack;
 
-import java.util.Optional;
-import java.util.function.Function;
-
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.DataResult;
-
 import de.dertoaster.kerkercraft.common.registration.RegistrationIDSupplier;
 import net.minecraft.resources.ResourceLocation;
+
+import java.util.Optional;
+import java.util.function.Function;
 
 public interface DatapackLoaderHelper {
 	
 	/* Access methods */
-	public static <T> Optional<T> getValueGeneral(final CodecJsonDataManager<T> manager, final ResourceLocation id) {
-		return Optional.ofNullable(manager.getData().getOrDefault(id, null));
+	public static <T> Optional<T> getValueGeneral(final SimpleCodecDataManager<T> manager, final ResourceLocation id) {
+		return Optional.ofNullable(manager.getData(id));
 	}
 	
 	/* Access codecs */
