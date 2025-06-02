@@ -7,7 +7,6 @@ import java.util.ServiceLoader;
 
 public class KCServices {
 	
-	public static final NetworkService NETWORK = load(NetworkService.class);
 	public static final FactionService FACTION = load(FactionService.class);
 	public static final BlockService BLOCK = load(BlockService.class);
 	public static final ConfigService CONFIG = load(ConfigService.class);
