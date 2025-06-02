@@ -1,6 +1,7 @@
 package de.dertoaster.kerkercraft.common.entity.profile.variant;
 
 import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import de.dertoaster.kerkercraft.common.LazyLoadField;
 import de.dertoaster.kerkercraft.common.datapack.EntityProfileDatapackRegistries;
@@ -23,7 +24,7 @@ public class EntityVariant {
 	//protected final Optional<HitboxProfile> hitboxConfig;
 	// TODO: Change extra data to be a Map<ResourceLocation, Object> instead
 	protected final List<IVariantExtraData<?>> extraDataList;
-	protected final Map<Codec<? extends IVariantExtraData<?>>, Object> extraDataMap = new HashMap<>();
+	protected final Map<MapCodec<? extends IVariantExtraData<?>>, Object> extraDataMap = new HashMap<>();
 	
 	private final LazyLoadField<WeightedList<AssetEntry>> assetWeightedList = new LazyLoadField<>(this::generateWeightedAssetList);
 	

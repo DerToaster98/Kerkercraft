@@ -1,35 +1,36 @@
 package de.dertoaster.kerkercraft.common.entity;
 
 import com.mojang.serialization.DataResult;
-import de.dertoaster.multihitboxlib.entity.hitbox.HitboxProfile;
+import de.dertoaster.kerkercraft.common.KCConstants;
+import de.dertoaster.kerkercraft.common.datapack.EntityProfileDatapackRegistries;
+import de.dertoaster.kerkercraft.common.entity.profile.EntityProfile;
+import de.dertoaster.kerkercraft.common.entity.profile.variant.*;
+import de.dertoaster.kerkercraft.common.reference.WeakReferenceLazyLoadField;
+import net.minecraft.core.Holder;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtOps;
 import net.minecraft.nbt.Tag;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityDimensions;
 import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.VariantHolder;
 import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.AttributeInstance;
+import net.minecraft.world.entity.ai.attributes.AttributeMap;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.level.Level;
-import net.minecraftforge.event.entity.EntityEvent;
-import net.minecraftforge.event.entity.living.MobSpawnEvent.FinalizeSpawn;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
-import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
-import team.cqr.cqrepoured.common.CQRConstants;
-import team.cqr.cqrepoured.common.CQRepoured;
-import team.cqr.cqrepoured.common.datapack.EntityProfileDatapackRegistries;
-import team.cqr.cqrepoured.common.entity.profile.EntityProfile;
-import team.cqr.cqrepoured.common.entity.profile.variant.*;
-import team.cqr.cqrepoured.common.reference.WeakReferenceLazyLoadField;
+import net.neoforged.bus.EventBus;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.neoforge.event.entity.EntityEvent;
+import net.neoforged.neoforge.event.entity.living.FinalizeSpawnEvent;
 
 import java.util.Optional;
+import java.util.function.Consumer;
 
 public class VariantEntity extends Monster implements VariantHolder<EntityVariant> {
 	
@@ -42,11 +43,11 @@ public class VariantEntity extends Monster implements VariantHolder<EntityVarian
 	 */
 	
 	// Forge crap
-	@EventBusSubscriber(modid = CQRepoured.MODID, bus = Bus.FORGE)
+	@EventBusSubscriber(modid = KCConstants.MODID, bus = EventBusSubscriber.Bus.GAME)
 	public static class EventListener {
 		
 		@SubscribeEvent
-		public static void onFinalizeSpawn(FinalizeSpawn event) {
+		public static void onFinalizeSpawn(FinalizeSpawnEvent event) {
 			if (event.getEntity() instanceof VariantEntity ve) {
 				EntityType<?> type = ve.getType();
 				Optional<EntityProfile> profile = EntityProfileDatapackRegistries.getProfile(type, event.getLevel().registryAccess());
@@ -58,15 +59,21 @@ public class VariantEntity extends Monster implements VariantHolder<EntityVarian
 						if (variant.hasAssetVariants()) {
 							ve.assetEntry = variant.getRandomAssetIndex(ve.getRandom());
 						}
-						
 						// And now: Attributes
+						AttributeMap attributeMap = ve.getAttributes();
+						final Consumer<AttributeInstance> onChangeConsumer = (attributeInstance) -> {
+							attributeMap.supplier.createInstance(attributeMap::onAttributeModified, (Holder<Attribute>) attributeInstance);
+						};
+
 						for (AttributeEntry entry : variant.attributes()) {
-							Attribute attribute = entry.attribute();
+							Holder<Attribute> attribute = entry.attribute();
 							double value = entry.value();
 							
 							if (!ve.getAttributes().hasAttribute(attribute)) {
 								// Add it lol
-								AttributeInstance attributeInstance = new AttributeInstance(attribute, (a) -> {});
+								// TODO: Properly implement!
+								AttributeInstance attributeInstance = new AttributeInstance(attribute, onChangeConsumer);
+								// TODO: Access Widener
 								ve.getAttributes().supplier.instances.putIfAbsent(attribute, attributeInstance);
 							}
 							ve.getAttribute(attribute).setBaseValue(value);
@@ -85,20 +92,20 @@ public class VariantEntity extends Monster implements VariantHolder<EntityVarian
 				SizeEntry sizeEntry = ve.getVariant().size();
 				switch(event.getPose()) {
 				case CROUCHING:
-					event.setNewSize(EntityDimensions.scalable(sizeEntry.width(), sizeEntry.height()).scale(ve.getScale()).scale(1F, 0.75F), true);
+					event.setNewSize(EntityDimensions.scalable(sizeEntry.width(), sizeEntry.height()).scale(ve.getScale()).scale(1F, 0.75F));
 					break;
 				case SITTING:
-					event.setNewSize(EntityDimensions.scalable(sizeEntry.width(), sizeEntry.height()).scale(ve.getScale()).scale(1F, 0.66F), true);
+					event.setNewSize(EntityDimensions.scalable(sizeEntry.width(), sizeEntry.height()).scale(ve.getScale()).scale(1F, 0.66F));
 					break;
 				case DIGGING:
 				case EMERGING:
-					event.setNewSize(EntityDimensions.scalable(sizeEntry.width(), sizeEntry.height()).scale(ve.getScale()).scale(1F, 0.5F), true);
+					event.setNewSize(EntityDimensions.scalable(sizeEntry.width(), sizeEntry.height()).scale(ve.getScale()).scale(1F, 0.5F));
 					break;
 				case SLEEPING:
-					event.setNewSize(EntityDimensions.scalable(sizeEntry.width(), sizeEntry.height()).scale(ve.getScale()).scale(1F, 0.5F), true);
+					event.setNewSize(EntityDimensions.scalable(sizeEntry.width(), sizeEntry.height()).scale(ve.getScale()).scale(1F, 0.5F));
 					break;
 				default:
-					event.setNewSize(EntityDimensions.scalable(sizeEntry.width(), sizeEntry.height()).scale(ve.getScale()), true);
+					event.setNewSize(EntityDimensions.scalable(sizeEntry.width(), sizeEntry.height()).scale(ve.getScale()));
 					break;
 				}
 				
@@ -126,11 +133,11 @@ public class VariantEntity extends Monster implements VariantHolder<EntityVarian
 		}
 		return result;
 	}
-	
+
 	@Override
-	public boolean hurt(DamageSource pSource, float pAmount) {
+	public boolean hurtServer(ServerLevel level, DamageSource pSource, float pAmount) {
 		if (this.getVariant() == null) {
-			return super.hurt(pSource, pAmount);
+			return super.hurtServer(level, pSource, pAmount);
 		}
 		// Otherwise, we'll need to intercept
 		
@@ -139,8 +146,8 @@ public class VariantEntity extends Monster implements VariantHolder<EntityVarian
 		if (pSource.is(DamageTypeTags.IS_FIRE) && damageConfig.fireImmune()) {
 			return false;
 		}
-		RegistryAccess access = this.level().registryAccess();
-		Float value = damageConfig.damageTypeMultipliers().getOrDefault(access.registryOrThrow(Registries.DAMAGE_TYPE).getKey(pSource.type()), null);
+		RegistryAccess access = level.registryAccess();
+		Float value = damageConfig.damageTypeMultipliers().getOrDefault(access.lookupOrThrow(Registries.DAMAGE_TYPE).getKey(pSource.type()), null);
 		if (value != null) {
 			pAmount *= value.floatValue();
 		}
@@ -156,7 +163,7 @@ public class VariantEntity extends Monster implements VariantHolder<EntityVarian
 			pAmount = cap.capDamage(pAmount, this::getMaxHealth);
 		}
 		
-		return super.hurt(pSource, pAmount);
+		return super.hurtServer(level, pSource, pAmount);
 	}
 	
 	public Optional<AssetEntry> getClientOverrides() {
@@ -178,7 +185,7 @@ public class VariantEntity extends Monster implements VariantHolder<EntityVarian
 			DataResult<Tag> dataResult = EntityVariant.CODEC.encodeStart(NbtOps.INSTANCE, this.getVariant());
 			Optional<Tag> optResult = dataResult.result();
 			if (optResult.isPresent()) {
-				pCompound.put(CQRConstants.NBT.KEY_ENTITY_VARIANT, optResult.get());
+				pCompound.put(KCConstants.NBT.KEY_ENTITY_VARIANT, optResult.get());
 			} 
 		}
 	}
@@ -187,16 +194,18 @@ public class VariantEntity extends Monster implements VariantHolder<EntityVarian
 	public void readAdditionalSaveData(CompoundTag pCompound) {
 		super.readAdditionalSaveData(pCompound);
 		
-		if (pCompound.contains(CQRConstants.NBT.KEY_ENTITY_VARIANT)) {
-			Tag nbtTag = pCompound.get(CQRConstants.NBT.KEY_ENTITY_VARIANT);
+		if (pCompound.contains(KCConstants.NBT.KEY_ENTITY_VARIANT)) {
+			Tag nbtTag = pCompound.get(KCConstants.NBT.KEY_ENTITY_VARIANT);
 			DataResult<EntityVariant> dataResult = EntityVariant.CODEC.parse(NbtOps.INSTANCE, nbtTag);
 			Optional<EntityVariant> optResult = dataResult.result();
 			if (!optResult.isEmpty()) {
 				this.setVariant(optResult.get());
+
+				// TODO: Implement => Read the actual asset index of that variant!
+				if (pCompound.contains(KCConstants.NBT.KEY_ENTITY_VARIANT_ASSETS)) {
+
+				}
 			}
-		}
-		if (pCompound.contains(CQRConstants.NBT.KEY_ENTITY_VARIANT_ASSETS, Tag.TAG_INT)) {
-			
 		}
 	}
 	
@@ -210,11 +219,11 @@ public class VariantEntity extends Monster implements VariantHolder<EntityVarian
 		return this.variant;
 	}
 	
-	public Optional<HitboxProfile> getHitboxProfile() {
+	/*public Optional<HitboxProfile> getHitboxProfile() {
 		if (this.getVariant() != null && this.getVariant().getOptHitboxProfile() != null) {
 			return this.getVariant().getOptHitboxProfile();
 		}
 		return Optional.empty();
-	}
+	}*/
 	
 }

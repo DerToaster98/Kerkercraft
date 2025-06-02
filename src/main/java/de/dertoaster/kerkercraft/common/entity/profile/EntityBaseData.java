@@ -1,13 +1,11 @@
 package de.dertoaster.kerkercraft.common.entity.profile;
 
-import java.util.List;
-
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-
-import net.minecraft.core.registries.Registries;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.entity.EntityType;
-import net.minecraftforge.registries.ForgeRegistries;
+
+import java.util.List;
 
 public record EntityBaseData(
 		//MobType mobType,
@@ -18,7 +16,7 @@ public record EntityBaseData(
 	public static final Codec<EntityBaseData> CODEC = RecordCodecBuilder.create(instance -> {
 		return instance.group(
 				// TODO: Create a mixin that introduces a map that holds the mobtypes by their "id" and then create a proper codec here
-				Registries.ENTITY_TYPE.getCodec().listOf().fieldOf("mounts").forGetter(EntityBaseData::allowedMounts)
+				BuiltInRegistries.ENTITY_TYPE.byNameCodec().listOf().fieldOf("mounts").forGetter(EntityBaseData::allowedMounts)
 			).apply(instance, EntityBaseData::new);
 	});
 

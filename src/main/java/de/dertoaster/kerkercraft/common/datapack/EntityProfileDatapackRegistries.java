@@ -1,7 +1,5 @@
 package de.dertoaster.kerkercraft.common.datapack;
 
-import java.util.Optional;
-
 import de.dertoaster.kerkercraft.Kerkercraft;
 import de.dertoaster.kerkercraft.common.KCConstants;
 import de.dertoaster.kerkercraft.common.entity.profile.EntityProfile;
@@ -9,12 +7,13 @@ import de.dertoaster.kerkercraft.common.entity.profile.variant.extradata.IVarian
 import net.commoble.databuddy.codec.RegistryDispatcher;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EntityType;
-import net.neoforged.fml.ModLoadingContext;
+import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
-import net.neoforged.neoforge.registries.NeoForgeRegistries;
+import net.neoforged.neoforge.registries.DataPackRegistryEvent;
+
+import java.util.Optional;
 
 @EventBusSubscriber(modid = KCConstants.MODID, bus = EventBusSubscriber.Bus.MOD)
 public class EntityProfileDatapackRegistries implements DatapackLoaderHelper {
