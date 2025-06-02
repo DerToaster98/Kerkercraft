@@ -1,18 +1,5 @@
 package de.dertoaster.kerkercraft.common.serialization;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Optional;
-import java.util.Set;
-import java.util.function.Function;
-import java.util.function.IntFunction;
-import java.util.stream.LongStream;
-import java.util.stream.Stream;
-
-import javax.annotation.Nullable;
-
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.mojang.datafixers.util.Pair;
@@ -21,7 +8,6 @@ import com.mojang.serialization.DynamicOps;
 import com.mojang.serialization.JsonOps;
 import com.mojang.serialization.Keyable;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-
 import de.dertoaster.kerkercraft.Kerkercraft;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtOps;
@@ -29,7 +15,13 @@ import net.minecraft.nbt.Tag;
 import net.minecraft.util.ExtraCodecs;
 import net.minecraft.util.SimpleBitStorage;
 import net.minecraft.world.entity.EquipmentSlot;
-import team.cqr.cqrepoured.common.CQRepoured;
+
+import javax.annotation.Nullable;
+import java.util.*;
+import java.util.function.Function;
+import java.util.function.IntFunction;
+import java.util.stream.LongStream;
+import java.util.stream.Stream;
 
 public class CodecUtil {
 
@@ -57,7 +49,10 @@ public class CodecUtil {
 
 	public static <T, I> T decodeOrThrow(Codec<T> codec, DynamicOps<I> ops, I input) {
 		return codec.decode(ops, input)
-				.getOrThrow(false, Kerkercraft.LOGGER::error)
+				.getOrThrow((s) -> {
+					Kerkercraft.LOGGER.error(s);
+					return new IllegalStateException(s);
+				})
 				.getFirst();
 	}
 
@@ -85,7 +80,10 @@ public class CodecUtil {
 
 	public static <T, O> O encodeOrThrow(Codec<T> codec, T input, DynamicOps<O> ops, @Nullable O prefix) {
 		return codec.encode(input, ops, prefix)
-				.getOrThrow(false, Kerkercraft.LOGGER::error);
+				.getOrThrow((s) -> {
+					Kerkercraft.LOGGER.error(s);
+					return new IllegalStateException(s);
+				});
 	}
 
 	public static <T> Tag encodeOrThrowNBT(Codec<T> codec, T input, @Nullable CompoundTag prefix) {
@@ -110,7 +108,7 @@ public class CodecUtil {
 	}
 
 	public static <K, V> Codec<Map<K, V>> stringMap(Function<K, String> keyToString, Function<String, K> stringToKey, Codec<V> valueCodec, K[] keys) {
-		return Codec.simpleMap(ExtraCodecs.stringResolverCodec(keyToString, stringToKey), valueCodec, new Keyable() {
+		return Codec.simpleMap(Codec.stringResolver(keyToString, stringToKey), valueCodec, new Keyable() {
 			@Override
 			public <T> Stream<T> keys(DynamicOps<T> ops) {
 				return Arrays.stream(keys)
