@@ -8,7 +8,6 @@ import java.util.ServiceLoader;
 public class KCServices {
 	
 	public static final FactionService FACTION = load(FactionService.class);
-	
 	public static final BlockService BLOCK = load(BlockService.class);
 	public static final ConfigService CONFIG = load(ConfigService.class);
 	public static final EntityTypeService ENTITY_TYPE = load(EntityTypeService.class);
