@@ -19,6 +19,7 @@ import net.minecraft.CrashReport;
 import net.minecraft.CrashReportCategory;
 import net.minecraft.ReportedException;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtAccounter;
 import net.minecraft.nbt.NbtIo;
 import net.minecraft.server.level.ServerLevel;
 
@@ -26,16 +27,6 @@ public class FileIOUtil {
 
 	public static FilenameFilter getNBTFileFilter() {
 		return (dir, name) -> name.endsWith(".nbt");
-	}
-
-	public static File getCQRDataFile(ServerLevel level, String fileName) {
-		//return new File(level.getDataStorage().dataFolder, "CQR/" + fileName);
-		return level.getDataStorage().getDataFile("CQR/" + fileName);
-	}
-
-	public static Path getCQRDataPath(ServerLevel level, String fileName) {
-		return level.getDataStorage().dataFolder.toPath()
-				.resolve("KC/" + fileName);
 	}
 
 	public static void writeNBT(File file, CompoundTag nbt) {
@@ -95,8 +86,12 @@ public class FileIOUtil {
 	}
 
 	public static CompoundTag readNBT(Path file) {
-		return read(file, (IOFunction<InputStream, CompoundTag>) NbtIo::readCompressed);
+		return read(file, NBTReadCompressed);
 	}
+
+	static IOFunction<InputStream, CompoundTag> NBTReadCompressed = (stream) -> {
+		return NbtIo.readCompressed(stream, NbtAccounter.unlimitedHeap());
+	};
 
 	public static void writeProperties(Path file, Properties properties) {
 		writeBuffered(file, out -> properties.store(out, null));
