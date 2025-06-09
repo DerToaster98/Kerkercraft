@@ -3,7 +3,7 @@ package de.dertoaster.kerkercraft.init.vanilla;
 import de.dertoaster.kerkercraft.common.services.KCServices;
 import de.dertoaster.kerkercraft.init.KCDataComponents;
 import de.dertoaster.kerkercraft.world.item.component.ConvertOnBreak;
-import de.dertoaster.kerkercraft.world.item.vanilla.MultiUsePotionItem;
+import de.dertoaster.kerkercraft.world.item.vanilla.PotionItem;
 import de.dertoaster.kerkercraft.world.item.weapon.melee.SpearItem;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.world.item.*;
@@ -15,9 +15,9 @@ import net.neoforged.neoforge.registries.DeferredItem;
 public class KCVanillaItems {
 
     // TODO: Move durability property to config!
-    static final DeferredItem<MultiUsePotionItem> POTION = KCServices.ITEM.registerAsVanilla(
+    static final DeferredItem<PotionItem> POTION = KCServices.ITEM.registerAsVanilla(
             "potion",
-            MultiUsePotionItem::new,
+            PotionItem::new,
             new Item.Properties()
                     .stacksTo(1)
                     .durability(3)

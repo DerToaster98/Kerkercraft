@@ -2,11 +2,10 @@ package de.dertoaster.kerkercraft.world.item.vanilla;
 
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.PotionItem;
 import net.minecraft.world.level.Level;
 
-public class MultiUsePotionItem extends PotionItem {
-    public MultiUsePotionItem(Properties p_42979_) {
+public class PotionItem extends net.minecraft.world.item.PotionItem {
+    public PotionItem(Properties p_42979_) {
         super(p_42979_);
     }
 
