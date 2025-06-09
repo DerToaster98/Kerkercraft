@@ -47,6 +47,10 @@ public class Kerkercraft implements IMainMod
         return ResourceLocation.fromNamespaceAndPath(KCConstants.MODID, path);
     }
 
+    public static final ResourceLocation prefixAttributeModifier(final String path) {
+        return ResourceLocation.fromNamespaceAndPath(KCConstants.MODID, "attribute_modifier/" + path);
+    }
+
 	/*public static final ResourceLocation prefixStructureTemplateId(final String path) {
 		return new ResourceLocation(MODID_STRUCTURES, path);
 	}*/
