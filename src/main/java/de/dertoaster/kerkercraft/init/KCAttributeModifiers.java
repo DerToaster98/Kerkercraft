@@ -9,4 +9,6 @@ public class KCAttributeModifiers {
 
     public static final ResourceLocation DAGGER_MOVEMENT_SPEED_MODIFIER = Kerkercraft.prefixAttributeModifier("dagger_speed_bonus");
 
+    public static final ResourceLocation ARMOR_WEIGHT_MOVEMENT_SPEED_MODIFIER = Kerkercraft.prefixAttributeModifier("armor_weight_speed_modifier");
+
 }
