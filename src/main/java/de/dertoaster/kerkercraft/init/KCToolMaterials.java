@@ -1,2 +1,5 @@
-package de.dertoaster.kerkercraft.init;public class KCToolMaterials {
+package de.dertoaster.kerkercraft.init;
+
+public class KCToolMaterials {
+
 }
