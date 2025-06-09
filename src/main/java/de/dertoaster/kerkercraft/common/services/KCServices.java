@@ -12,6 +12,8 @@ public class KCServices {
 	public static final ConfigService CONFIG = load(ConfigService.class);
 	public static final EntityTypeService ENTITY_TYPE = load(EntityTypeService.class);
 	public static final BlockEntityService BLOCK_ENTITY_TYPE = load(BlockEntityService.class);
+	public static final DataComponentService DATA_COMPONENT = load(DataComponentService.class);
+	public static final ItemService ITEM = load(ItemService.class);
 
 	public static <T> T load(Class<T> clazz) {
         final T loadedService = ServiceLoader.load(clazz)
