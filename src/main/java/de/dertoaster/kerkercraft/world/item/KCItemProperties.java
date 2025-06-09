@@ -11,7 +11,6 @@ import net.minecraft.world.entity.EquipmentSlotGroup;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.Rarity;
 import net.minecraft.world.item.ToolMaterial;
 import net.minecraft.world.item.TridentItem;
 import net.minecraft.world.item.component.ItemAttributeModifiers;
@@ -24,9 +23,7 @@ import net.minecraft.world.item.equipment.Equippable;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.function.Function;
 
 public class KCItemProperties extends Item.Properties {
@@ -54,27 +51,27 @@ public class KCItemProperties extends Item.Properties {
         }
         return result;
     }
-    // TODO: Move to config option or datapack!
-    private static final Map<ArmorMaterial, Double> DENSITY_MAP = new HashMap<>(Map.of(
-            ArmorMaterials.IRON, 7.874D,
-            ArmorMaterials.CHAINMAIL, 3.94D,
-            ArmorMaterials.GOLD, 19.302,
-            ArmorMaterials.DIAMOND, 3.5D,
-            ArmorMaterials.NETHERITE, 8.578D,
-            ArmorMaterials.LEATHER, 1.4D
-    ));
 
-    private static final Function<Double, Double> CALCULATION_FUNCTION = buildCalculationFunction();
+    private static final Function<Integer, Double> CALCULATION_FUNCTION = buildCalculationFunction();
 
-    private static Function<Double, Double> buildCalculationFunction() {
+    private static Function<Integer, Double> buildCalculationFunction() {
         double A = 0, B = 0;
 
         // TODO: Config value!
-        final double modifierLeather = 0.25D;
+        final double modifierLeather = 0.1D;
         final double modifierChainmail = 0.0D;
 
-        final double densityLeather = DENSITY_MAP.getOrDefault(ArmorMaterials.LEATHER, 1.4D);
-        final double densityChainmail = DENSITY_MAP.getOrDefault(ArmorMaterials.CHAINMAIL, 3.94D);
+        int densityLeather = 0;
+        for (int i : ArmorMaterials.LEATHER.defense().values()) {
+            densityLeather += i;
+        }
+        int densityChainmail = 0;
+        for (int i : ArmorMaterials.CHAINMAIL.defense().values()) {
+            densityChainmail += i;
+        }
+        if (densityChainmail == densityLeather) {
+            densityLeather += 1;
+        }
 
         A = (modifierLeather - modifierChainmail) / (densityChainmail - densityLeather);
         B = modifierChainmail - (A * densityChainmail);
@@ -86,29 +83,16 @@ public class KCItemProperties extends Item.Properties {
         };
     }
 
-    public Item.Properties KCHumanoidArmor(ArmorMaterial material, ArmorType type) {
-        // A full leather set gives +25% movement speed. => 3.94 - 1.4D = 2.54-> +0.25
-        // A full chainmal set does not modify movement speed => 3.94 -> 0.0
-        // => y = A * x + B
-        // 0 = A * 1.4 + B
-        // 0.25 = A * 3.94 + B
-        //
-        // Horizontal modifier (A):
-        // Delta: 3.94 - 1.4 = 2.54
-        // Over 2.54 units, our vertical delta is 0.25. The normal delta should be 2.54, so that is how we get our scaling!
-        // => X modifier = 0.25 / 2.54 = 0.0984251969...
-        //
-        // Vertical modifier (B):
-        // We know that at X = 3.94 (density of chainmal), Y (the speed modifier) should be zero
-        // Calculate the value at X = 1.4:
-        //   3.94 * 0.0984251969... = 0.3877952758...
-        // Known value that we need here: 0
-        // Difference: B = 0 - 0.3877952758... = -0.3877952758
-        //
-        // Since we already calculated our relation to leather and the slot modifier, we can multiply it with that!
-        double density = DENSITY_MAP.getOrDefault(material, 1D) / DENSITY_MAP.getOrDefault(ArmorMaterials.LEATHER, 1.4D);
+    public Item.Properties weightAwareHumanoidArmor(ArmorMaterial material, ArmorType type) {
+        // A full leather set gives +10% movement speed
+        // A full chainmail set does not modify movement speed
+        // Modifier is calculated based on the total defense of the armor
+        int defense = 0;
+        for (int i : material.defense().values()) {
+            defense += i;
+        }
         double slotMultiplier = ARMOR_TYPE_WEIGHT_MODIFIERS[type.ordinal()];
-        final double speedModifier = CALCULATION_FUNCTION.apply(density) * slotMultiplier;
+        final double speedModifier = CALCULATION_FUNCTION.apply(defense) * slotMultiplier;
 
         return this
                 .durability(type.getDurability(material.durability()))
