@@ -75,10 +75,10 @@ public class KCItems {
     public static DeferredItem<KCGeoArmorItem> HEAVY_DIAMOND_LEGGINGS = KCServices.ITEM.registerHelmet("heavy_diamond_leggings", KCArmorMaterials.HEAVY_DIAMOND, KCGeoArmorItem::new);
     public static DeferredItem<KCGeoArmorItem> HEAVY_DIAMOND_BOOTS = KCServices.ITEM.registerHelmet("deavy_diamond_boots", KCArmorMaterials.HEAVY_DIAMOND, KCGeoArmorItem::new);
 
-    public static DeferredItem<KCGeoArmorItem> HEAVY_NETHERITE_HELMET = KCServices.ITEM.registerHelmet("heavy_netherite_helmet", KCArmorMaterials.HEAVY_NETHERITE, KCGeoArmorItem::new);
-    public static DeferredItem<KCGeoArmorItem> HEAVY_NETHERITE_CHESTPLATE = KCServices.ITEM.registerHelmet("heavy_netherite_chestplate", KCArmorMaterials.HEAVY_NETHERITE, KCGeoArmorItem::new);
-    public static DeferredItem<KCGeoArmorItem> HEAVY_NETHERITE_LEGGINGS = KCServices.ITEM.registerHelmet("heavy_netherite_leggings", KCArmorMaterials.HEAVY_NETHERITE, KCGeoArmorItem::new);
-    public static DeferredItem<KCGeoArmorItem> HEAVY_NETHERITE_BOOTS = KCServices.ITEM.registerHelmet("heavy_netherite_boots", KCArmorMaterials.HEAVY_NETHERITE, KCGeoArmorItem::new);
+    public static DeferredItem<KCGeoArmorItem> HEAVY_NETHERITE_HELMET = KCServices.ITEM.registerHelmet("heavy_netherite_helmet", KCArmorMaterials.HEAVY_NETHERITE, KCGeoArmorItem::new, c -> c.fireResistant());
+    public static DeferredItem<KCGeoArmorItem> HEAVY_NETHERITE_CHESTPLATE = KCServices.ITEM.registerHelmet("heavy_netherite_chestplate", KCArmorMaterials.HEAVY_NETHERITE, KCGeoArmorItem::new, c -> c.fireResistant());
+    public static DeferredItem<KCGeoArmorItem> HEAVY_NETHERITE_LEGGINGS = KCServices.ITEM.registerHelmet("heavy_netherite_leggings", KCArmorMaterials.HEAVY_NETHERITE, KCGeoArmorItem::new, c -> c.fireResistant());
+    public static DeferredItem<KCGeoArmorItem> HEAVY_NETHERITE_BOOTS = KCServices.ITEM.registerHelmet("heavy_netherite_boots", KCArmorMaterials.HEAVY_NETHERITE, KCGeoArmorItem::new, c -> c.fireResistant());
 
     // TODO: Proper custom item implementation!
     public static DeferredItem<KCGeoArmorItem> TORTOISE_HELMET = KCServices.ITEM.registerHelmet("tortoise_helmet", KCArmorMaterials.TORTOISE, KCGeoArmorItem::new);
@@ -116,10 +116,10 @@ public class KCItems {
     public static DeferredItem<KCGeoArmorItem> DYABLE_DIAMOND_LEGGINGS = KCServices.ITEM.registerHelmet("dyable_diamond_leggings", KCArmorMaterials.DYABLE_DIAMOND, DyableArmor::new);
     public static DeferredItem<KCGeoArmorItem> DYABLE_DIAMOND_BOOTS = KCServices.ITEM.registerHelmet("dyable_diamond_boots", KCArmorMaterials.DYABLE_DIAMOND, DyableArmor::new);
 
-    public static DeferredItem<KCGeoArmorItem> DYABLE_NETHERITE_HELMET = KCServices.ITEM.registerHelmet("dyable_netherite_helmet", KCArmorMaterials.DYABLE_NETHERITE, DyableArmor::new);
-    public static DeferredItem<KCGeoArmorItem> DYABLE_NETHERITE_CHESTPLATE = KCServices.ITEM.registerHelmet("dyable_netherite_chestplate", KCArmorMaterials.DYABLE_NETHERITE, DyableArmor::new);
-    public static DeferredItem<KCGeoArmorItem> DYABLE_NETHERITE_LEGGINGS = KCServices.ITEM.registerHelmet("dyable_netherite_leggings", KCArmorMaterials.DYABLE_NETHERITE, DyableArmor::new);
-    public static DeferredItem<KCGeoArmorItem> DYABLE_NETHERITE_BOOTS = KCServices.ITEM.registerHelmet("dyable_netherite_boots", KCArmorMaterials.DYABLE_NETHERITE, DyableArmor::new);
+    public static DeferredItem<KCGeoArmorItem> DYABLE_NETHERITE_HELMET = KCServices.ITEM.registerHelmet("dyable_netherite_helmet", KCArmorMaterials.DYABLE_NETHERITE, DyableArmor::new, c -> c.fireResistant());
+    public static DeferredItem<KCGeoArmorItem> DYABLE_NETHERITE_CHESTPLATE = KCServices.ITEM.registerHelmet("dyable_netherite_chestplate", KCArmorMaterials.DYABLE_NETHERITE, DyableArmor::new, c -> c.fireResistant());
+    public static DeferredItem<KCGeoArmorItem> DYABLE_NETHERITE_LEGGINGS = KCServices.ITEM.registerHelmet("dyable_netherite_leggings", KCArmorMaterials.DYABLE_NETHERITE, DyableArmor::new, c -> c.fireResistant());
+    public static DeferredItem<KCGeoArmorItem> DYABLE_NETHERITE_BOOTS = KCServices.ITEM.registerHelmet("dyable_netherite_boots", KCArmorMaterials.DYABLE_NETHERITE, DyableArmor::new, c -> c.fireResistant());
 
     public static DeferredItem<KCGeoArmorItem> DYABLE_ROBE_HELMET = KCServices.ITEM.registerHelmet("dyable_robe_helmet", KCArmorMaterials.CLOTH, DyableArmor::new);
     public static DeferredItem<KCGeoArmorItem> DYABLE_ROBE_CHESTPLATE = KCServices.ITEM.registerHelmet("dyable_robe_chestplate", KCArmorMaterials.CLOTH, DyableArmor::new);
