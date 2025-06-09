@@ -1,6 +1,7 @@
 package de.dertoaster.kerkercraft.world.item;
 
 import de.dertoaster.kerkercraft.init.KCAttributeModifiers;
+import de.dertoaster.kerkercraft.world.item.weapon.melee.SpearItem;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.HolderSet;
 import net.minecraft.core.component.DataComponents;
@@ -10,7 +11,9 @@ import net.minecraft.world.entity.EquipmentSlotGroup;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Rarity;
 import net.minecraft.world.item.ToolMaterial;
+import net.minecraft.world.item.TridentItem;
 import net.minecraft.world.item.component.ItemAttributeModifiers;
 import net.minecraft.world.item.component.Tool;
 import net.minecraft.world.item.component.Weapon;
@@ -25,7 +28,22 @@ public class KCItemProperties extends Item.Properties {
         return applyDaggerProperties(material, new Item.Properties(), attackDamage, attackSpeed);
     }
 
-    public Item.Properties applyDaggerProperties(ToolMaterial material, Item.Properties properties, float attackDamage, float attackSpeed) {
+    public Item.Properties spear(ToolMaterial material, float attackDamage, float attackSpeed) {
+        return applySpearProperties(material, new Item.Properties(), attackDamage, attackSpeed);
+    }
+
+    private Item.Properties applySpearProperties(ToolMaterial material, Item.Properties properties, float attackDamage, float attackSpeed) {
+        HolderGetter<Block> holdergetter = BuiltInRegistries.acquireBootstrapRegistrationLookup(BuiltInRegistries.BLOCK);
+        return material.applyCommonProperties(properties)
+                .component(
+                        DataComponents.TOOL,
+                        TridentItem.createToolProperties()
+                )
+                .attributes(SpearItem.createAttributes(material, attackDamage, attackSpeed))
+                .component(DataComponents.WEAPON, new Weapon(1));
+    }
+
+    private Item.Properties applyDaggerProperties(ToolMaterial material, Item.Properties properties, float attackDamage, float attackSpeed) {
         HolderGetter<Block> holdergetter = BuiltInRegistries.acquireBootstrapRegistrationLookup(BuiltInRegistries.BLOCK);
         return material.applyCommonProperties(properties)
                 .component(
