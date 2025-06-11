@@ -1,0 +1,34 @@
+{
+  "layers": {
+    "humanoid": [
+      {
+        "dyeable": {
+          "color_when_undyed": [
+            55,
+            53,
+            55
+          ]
+        },
+        "texture": "kerkercraft:armor/dyable/netherite"
+      },
+      {
+        "texture": "kerkercraft:armor/dyable/netherite_overlay"
+      }
+    ],
+    "humanoid_leggings": [
+      {
+        "dyeable": {
+          "color_when_undyed": [
+            55,
+            53,
+            55
+          ]
+        },
+        "texture": "kerkercraft:armor/dyable/netherite_legs"
+      },
+      {
+        "texture": "kerkercraft:armor/dyable/netherite_legs_overlay"
+      }
+    ]
+  }
+}

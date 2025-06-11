@@ -1,0 +1,34 @@
+{
+  "layers": {
+    "humanoid": [
+      {
+        "dyeable": {
+          "color_when_undyed": [
+            255,
+            191,
+            0
+          ]
+        },
+        "texture": "kerkercraft:armor/dyable/gold"
+      },
+      {
+        "texture": "kerkercraft:armor/dyable/gold_overlay"
+      }
+    ],
+    "humanoid_leggings": [
+      {
+        "dyeable": {
+          "color_when_undyed": [
+            255,
+            191,
+            0
+          ]
+        },
+        "texture": "kerkercraft:armor/dyable/gold_legs"
+      },
+      {
+        "texture": "kerkercraft:armor/dyable/gold_legs_overlay"
+      }
+    ]
+  }
+}

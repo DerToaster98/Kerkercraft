@@ -1,0 +1,14 @@
+{
+  "layers": {
+    "humanoid": [
+      {
+        "texture": "kerkercraft:armor/slime"
+      }
+	],
+  "humanoid_leggings": [
+      {
+        "texture": "kerkercraft:armor/slime_legs"
+      }
+    ]
+  }
+}
