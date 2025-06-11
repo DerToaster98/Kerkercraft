@@ -11,7 +11,7 @@ public interface KCEquipmentAssets extends EquipmentAssets {
     ResourceKey<? extends Registry<EquipmentAsset>> REGISTRY_ID = ResourceKey.createRegistryKey(Kerkercraft.prefix("equipment_asset"));
 
     static ResourceKey<EquipmentAsset> register(String id) {
-        return ResourceKey.create(REGISTRY_ID, Kerkercraft.prefix("id"));
+        return ResourceKey.create(REGISTRY_ID, Kerkercraft.prefix(id));
     }
 
     // TODO: Can we do it like this???
