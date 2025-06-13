@@ -3,7 +3,6 @@ package de.dertoaster.kerkercraft.init;
 import de.dertoaster.kerkercraft.common.services.KCServices;
 import de.dertoaster.kerkercraft.world.item.component.ConvertOnBreak;
 import net.minecraft.core.component.DataComponentType;
-import net.minecraft.world.item.component.UseRemainder;
 
 import java.util.function.Supplier;
 

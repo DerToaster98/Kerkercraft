@@ -65,6 +65,11 @@ public class KCItems {
     // endregion Spears
 
     // region Armors
+    public static DeferredItem<KCGeoArmorItem> HEAVY_GOLD_HELMET = KCServices.ITEM.registerHelmet("heavy_gold_helmet", KCArmorMaterials.HEAVY_IRON, KCGeoArmorItem::new);
+    public static DeferredItem<KCGeoArmorItem> HEAVY_GOLD_CHESTPLATE = KCServices.ITEM.registerHelmet("heavy_gold_chestplate", KCArmorMaterials.HEAVY_IRON, KCGeoArmorItem::new);
+    public static DeferredItem<KCGeoArmorItem> HEAVY_GOLD_LEGGINGS = KCServices.ITEM.registerHelmet("heavy_gold_leggings", KCArmorMaterials.HEAVY_IRON, KCGeoArmorItem::new);
+    public static DeferredItem<KCGeoArmorItem> HEAVY_GOLD_BOOTS = KCServices.ITEM.registerHelmet("heavy_gold_boots", KCArmorMaterials.HEAVY_IRON, KCGeoArmorItem::new);
+
     public static DeferredItem<KCGeoArmorItem> HEAVY_IRON_HELMET = KCServices.ITEM.registerHelmet("heavy_iron_helmet", KCArmorMaterials.HEAVY_IRON, KCGeoArmorItem::new);
     public static DeferredItem<KCGeoArmorItem> HEAVY_IRON_CHESTPLATE = KCServices.ITEM.registerHelmet("heavy_iron_chestplate", KCArmorMaterials.HEAVY_IRON, KCGeoArmorItem::new);
     public static DeferredItem<KCGeoArmorItem> HEAVY_IRON_LEGGINGS = KCServices.ITEM.registerHelmet("heavy_iron_leggings", KCArmorMaterials.HEAVY_IRON, KCGeoArmorItem::new);
