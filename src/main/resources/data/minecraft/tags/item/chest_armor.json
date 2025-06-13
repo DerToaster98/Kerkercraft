@@ -1,0 +1,21 @@
+{
+	"replace": false,
+	"values": [
+		"kerkercraft:heavy_iron_chestplate",
+		"kerkercraft:heavy_diamond_chestplate",
+		"kerkercraft:heavy_netherite_chestplate",
+		"kerkercraft:heavy_gold_chestplate",
+		"kerkercraft:tortoise_chestplate",
+		"kerkercraft:bull_chestplate",
+		"kerkercraft:slime_chestplate",
+		"kerkercraft:dyable_gold_chestplate",
+		"kerkercraft:dyable_iron_chestplate",
+		"kerkercraft:dyable_diamond_chestplate",
+		"kerkercraft:dyable_netherite_chestplate",
+		"kerkercraft:dyable_robe_chestplate",
+		"kerkercraft:king_armor_chestpalte",
+		"kerkercraft:adventurer_bag",
+		"kerkercraft:small_backpack",
+		"kerkercraft:big_backpack"
+	]
+}

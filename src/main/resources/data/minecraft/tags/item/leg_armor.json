@@ -1,0 +1,17 @@
+{
+	"replace": false,
+	"values": [
+		"kerkercraft:heavy_iron_leggings",
+		"kerkercraft:heavy_diamond_leggings",
+		"kerkercraft:heavy_netherite_leggings",
+		"kerkercraft:heavy_gold_leggings",
+		"kerkercraft:tortoise_leggings",
+		"kerkercraft:bull_leggings",
+		"kerkercraft:slime_leggings",
+		"kerkercraft:dyable_gold_leggings",
+		"kerkercraft:dyable_iron_leggings",
+		"kerkercraft:dyable_diamond_leggings",
+		"kerkercraft:dyable_netherite_leggings",
+		"kerkercraft:dyable_robe_leggings"
+	]
+}

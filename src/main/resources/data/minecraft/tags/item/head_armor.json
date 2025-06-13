@@ -1,0 +1,18 @@
+{
+	"replace": false,
+	"values": [
+		"kerkercraft:heavy_iron_helmet",
+		"kerkercraft:heavy_diamond_helmet",
+		"kerkercraft:heavy_netherite_helmet",
+		"kerkercraft:heavy_gold_helmet",
+		"kerkercraft:tortoise_helmet",
+		"kerkercraft:bull_helmet",
+		"kerkercraft:slime_helmet",
+		"kerkercraft:dyable_gold_helmet",
+		"kerkercraft:dyable_iron_helmet",
+		"kerkercraft:dyable_diamond_helmet",
+		"kerkercraft:dyable_netherite_helmet",
+		"kerkercraft:dyable_robe_helmet"
+		"kerkercraft:king_armor_helmet"
+	]
+}

@@ -1,0 +1,25 @@
+{
+	"replace": false,
+	"values": [
+		"kerkercraft:dyable_gold_helmet",
+		"kerkercraft:dyable_gold_chestplate",
+		"kerkercraft:dyable_gold_leggings",
+		"kerkercraft:dyable_gold_boots",
+		"kerkercraft:dyable_iron_helmet",
+		"kerkercraft:dyable_iron_chestplate",
+		"kerkercraft:dyable_iron_leggings",
+		"kerkercraft:dyable_iron_boots",
+		"kerkercraft:dyable_diamond_helmet",
+		"kerkercraft:dyable_diamond_chestplate",
+		"kerkercraft:dyable_diamond_leggings",
+		"kerkercraft:dyable_diamond_boots",
+		"kerkercraft:dyable_netherite_helmet",
+		"kerkercraft:dyable_netherite_chestplate",
+		"kerkercraft:dyable_netherite_leggings",
+		"kerkercraft:dyable_netherite_boots",
+		"kerkercraft:dyable_robe_helmet",
+		"kerkercraft:dyable_robe_chestplate",
+		"kerkercraft:dyable_robe_leggings",
+		"kerkercraft:dyable_robe_boots"
+	]
+}

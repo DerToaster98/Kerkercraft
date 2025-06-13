@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "kerkercraft:dyable_robe_boots",
+    "kerkercraft:dyable_robe_leggings",
+    "kerkercraft:dyable_robe_chestplate",
+    "kerkercraft:dyable_robe_helmet"
+  ]
+}

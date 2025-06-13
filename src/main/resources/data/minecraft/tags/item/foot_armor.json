@@ -1,0 +1,17 @@
+{
+	"replace": false,
+	"values": [
+		"kerkercraft:heavy_iron_boots",
+		"kerkercraft:heavy_diamond_boots",
+		"kerkercraft:heavy_netherite_boots",
+		"kerkercraft:heavy_gold_boots",
+		"kerkercraft:tortoise_boots",
+		"kerkercraft:bull_boots",
+		"kerkercraft:slime_boots",
+		"kerkercraft:dyable_gold_boots",
+		"kerkercraft:dyable_iron_boots",
+		"kerkercraft:dyable_diamond_boots",
+		"kerkercraft:dyable_netherite_boots",
+		"kerkercraft:dyable_robe_boots"
+	]
+}
