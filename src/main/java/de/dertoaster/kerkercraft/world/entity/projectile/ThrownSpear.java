@@ -1,5 +1,6 @@
 package de.dertoaster.kerkercraft.world.entity.projectile;
 
+import de.dertoaster.kerkercraft.common.item.ItemUtil;
 import de.dertoaster.kerkercraft.init.KCEntityTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -60,15 +61,12 @@ public class ThrownSpear extends AbstractArrow {
     protected void onHitEntity(EntityHitResult result) {
         Entity entity = result.getEntity();
 
-        // TODO: Replace with actual damage from spear!
-        float baseDamage = 2.0F;
-
         Entity effectiveOwner = this.getOwner();
         effectiveOwner = effectiveOwner == null ? this : effectiveOwner;
         DamageSource damagesource = this.damageSources().trident(this, effectiveOwner);
-        Level var7 = this.level();
-        if (var7 instanceof ServerLevel serverlevel1) {
-            baseDamage = EnchantmentHelper.modifyDamage(serverlevel1, this.getWeaponItem(), entity, damagesource, baseDamage);
+        float baseDamage = 2.0F; // Fallback when the owner isnt a living entity
+        if (effectiveOwner instanceof LivingEntity livingOwner) {
+            baseDamage = ItemUtil.getAttackDamageOf(this.getWeaponItem(), damagesource, livingOwner, this.level(), entity);
         }
 
         this.dealtDamage = true;
@@ -77,8 +75,7 @@ public class ThrownSpear extends AbstractArrow {
                 return;
             }
 
-            var7 = this.level();
-            if (var7 instanceof ServerLevel serverlevel1) {
+            if (this.level() instanceof ServerLevel serverlevel1) {
                 EnchantmentHelper.doPostAttackEffectsWithItemSourceOnBreak(serverlevel1, entity, damagesource, this.getWeaponItem(), (p_375964_) -> {
                     this.kill(serverlevel1);
                 });
@@ -93,6 +90,7 @@ public class ThrownSpear extends AbstractArrow {
 
         this.deflect(ProjectileDeflection.REVERSE, entity, this.getOwner(), false);
         this.setDeltaMovement(this.getDeltaMovement().multiply(0.02, 0.2, 0.02));
+        // TODO: Proper sound!
         this.playSound(SoundEvents.TRIDENT_HIT, 1.0F, 1.0F);
     }
 
