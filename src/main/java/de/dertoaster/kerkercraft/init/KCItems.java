@@ -6,7 +6,6 @@ import de.dertoaster.kerkercraft.world.item.armor.DyableArmor;
 import de.dertoaster.kerkercraft.world.item.armor.KCGeoArmorItem;
 import de.dertoaster.kerkercraft.world.item.weapon.melee.SpearItem;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.item.ToolMaterial;
 import net.neoforged.neoforge.registries.DeferredItem;
 
@@ -65,6 +64,7 @@ public class KCItems {
     // endregion Spears
 
     // region Armors
+    // TODO: Do we really want to use geckolib armor for that? Glib rendering is slower than vanilla... And we dont even use armor animations (for what even...)
     public static DeferredItem<KCGeoArmorItem> HEAVY_GOLD_HELMET = KCServices.ITEM.registerHelmet("heavy_gold_helmet", KCArmorMaterials.HEAVY_IRON, KCGeoArmorItem::new);
     public static DeferredItem<KCGeoArmorItem> HEAVY_GOLD_CHESTPLATE = KCServices.ITEM.registerHelmet("heavy_gold_chestplate", KCArmorMaterials.HEAVY_IRON, KCGeoArmorItem::new);
     public static DeferredItem<KCGeoArmorItem> HEAVY_GOLD_LEGGINGS = KCServices.ITEM.registerHelmet("heavy_gold_leggings", KCArmorMaterials.HEAVY_IRON, KCGeoArmorItem::new);
