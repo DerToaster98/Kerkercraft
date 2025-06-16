@@ -1,7 +1,6 @@
 package de.dertoaster.kerkercraft.common.services.interfaces;
 
 import de.dertoaster.kerkercraft.world.item.KCItemProperties;
-import de.dertoaster.kerkercraft.world.item.armor.KCGeoArmorItem;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
@@ -13,7 +12,6 @@ import javax.annotation.Nullable;
 import java.util.Optional;
 import java.util.function.Consumer;
 import java.util.function.Function;
-import java.util.function.Supplier;
 
 public interface ItemService {
 
@@ -25,7 +23,7 @@ public interface ItemService {
     }
 
     public <T extends Item> DeferredItem<T> registerItem(String id, Function<Item.Properties, T> factory, Item.Properties properties, @Nullable ResourceKey<CreativeModeTab>... tabs);
-    public <T extends Item> DeferredItem<T> registerAsVanilla(String id, Function<Item.Properties, Item> factory, Item.Properties properties);
+    public <T extends Item> DeferredItem<T> registerAsVanilla(String id, Function<Item.Properties, T> factory, Item.Properties properties);
 
 
     public default <T extends Item> DeferredItem<T> registerHelmet(String id, ArmorMaterial armorMaterial, Function<Item.Properties, T> factory) {
