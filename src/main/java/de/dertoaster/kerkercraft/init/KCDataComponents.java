@@ -1,6 +1,7 @@
 package de.dertoaster.kerkercraft.init;
 
 import de.dertoaster.kerkercraft.common.services.KCServices;
+import de.dertoaster.kerkercraft.world.item.component.BackpackContent;
 import de.dertoaster.kerkercraft.world.item.component.ConvertOnBreak;
 import net.minecraft.core.component.DataComponentType;
 
@@ -13,6 +14,14 @@ public class KCDataComponents {
             builder -> builder
                     .persistent(ConvertOnBreak.CODEC)
                     .networkSynchronized(ConvertOnBreak.STREAM_CODEC)
+                    .cacheEncoding()
+    );
+
+    public static final Supplier<DataComponentType<BackpackContent>> BACKPACK_CONTAINER = KCServices.DATA_COMPONENT.registerDataComponent(
+            "backpack_content",
+            builder -> builder
+                    .persistent(BackpackContent.CODEC)
+                    .networkSynchronized(BackpackContent.STREAM_CODEC)
                     .cacheEncoding()
     );
 
